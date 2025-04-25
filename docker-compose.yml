@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: nest_app
+    build:
+      context: src
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: mongodb://mongo:27017/Nest
+      JWT_SECRET: 'secretKey' 
+    depends_on:
+      - mongo
+    networks:
+      - nest-network
+
+  mongo:
+    container_name: mongo_db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - nest-network
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  nest-network:
+    driver: bridge
