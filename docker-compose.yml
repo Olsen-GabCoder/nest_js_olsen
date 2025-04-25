@@ -4,13 +4,13 @@ services:
   app:
     container_name: nest_app
     build:
-      context: src
+      context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
       DATABASE_URL: mongodb://mongo:27017/Nest
-      JWT_SECRET: 'secretKey' 
+      JWT_SECRET: 'secretKey'
     depends_on:
       - mongo
     networks:
